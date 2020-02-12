@@ -12,7 +12,7 @@ function whatIsHappening() {
     echo '<h2>$_SESSION</h2>';
     var_dump($_SESSION);
 }
-Function displayItems (){
+function displayItems (){
     if(isset($_GET['food'])) {
         switch ($_GET['food']) {
             case '1':
@@ -48,12 +48,11 @@ Function displayItems (){
 };
 function calculatePrice($orderProducts){
    $eachPrice = array();
-   foreach ($orderProducts as $orderProduct ){
+   foreach ($orderProducts as $orderProduct ) {
        foreach ($orderProduct as $priceKey => $quantity) {
-           $eachPrice[] = $priceKey * $quantity;
+           $eachPrice[] = (int)$priceKey * (int)$quantity;
        }
    }
 return $totalPrice = array_sum($eachPrice);
 };
-$sum = calculatePrice(['cola' => [2 => 4], 'fanta' => [2 => 3]]);
-$totalValue = 0;
+

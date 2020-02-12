@@ -10,5 +10,3 @@
             </div>
         </label>
     <?php endforeach; ?>
-
-    $order[<?php echo $product['name']?>][<?php echo $product['price']?>]];

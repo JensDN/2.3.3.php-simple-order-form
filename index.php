@@ -2,6 +2,7 @@
 //this line makes PHP behave in a more strict way
 declare(strict_types=1);
 session_start();
+include './components/my_functions.php';
 ?>
 
 <!DOCTYPE html>

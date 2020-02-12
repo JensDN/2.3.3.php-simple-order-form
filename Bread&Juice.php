@@ -1,7 +1,5 @@
 <?php
-require './components/my_functions.php';
-whatIsHappening();
-
+include './components/my_functions.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,11 +79,9 @@ whatIsHappening();
         </div>
     </section>
 </main>
-<footer class="page-footer">
-    <div class="container">
-        <div class="links"><a href="#">About me</a><a href="#">Contact me</a><a href="#">Bread&amp;Juice</a></div>
-    </div>
-</footer>
+<?php
+include './UI/footer.php';
+?>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
