@@ -1,4 +1,5 @@
 <?php
+
 function filterName($field){
     //Sanitize the userName;
     $field = filter_var(trim($field),FILTER_SANITIZE_STRING);
@@ -88,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $streetNumber = filterNumber($_POST['streetnumber']);
         if($streetNumber == FALSE){
-            $streetNumberErr = "Please enter e valid streetnumber";
+            $streetNumberErr = "Please enter a valid streetnumber";
         }
     }
     if(empty($_POST["city"])){
@@ -104,65 +105,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $zipcode = filterNumber($_POST['zipcode']);
         if($zipcode == FALSE){
-            $zipcodeErr = "Please enter e valid zipcode";
+            $zipcodeErr = "Please enter a valid zipcode";
         }
     }
     // Check input errors before sending email/alert
     if(empty($nameErr) && empty($emailErr) && empty($streetErr) && empty($streetNumberErr) && empty($cityErr) && empty($zipcodeErr) ){
+        $_SESSION['address'] = ['street' => $street, 'streetNumber' => $streetNumber, 'city' => $city, 'zipcode' => $zipcode];
+        $_SESSION['user'] = ['name' => $name, 'email' => $email];
+
         echo  "yeeeees";
     }
-
 }
 ?>
-<div class="form-row">
-    <div class="form-group col-md-6">
-        <label for="email">E-mail:</label>
-        <input type="text" id="email" name="email" class="form-control" value="<?php echo $email; ?>"/>
-        <span class="error"><?php echo $emailErr; ?></span>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" class="form-control" value="<?php echo $name; ?>"/>
-        <span class="error"><?php echo $nameErr; ?></span>
-    </div>
+<div class="form-group">
+    <label for="email">Email</label>
+    <input class="form-control item" type="email" id="email" name="email" value="<?php echo $email; ?>"/>
+    <?php  if(!empty($emailErr)){ echo  '<div class="alert alert-danger" role="alert">'.$emailErr.'</div>';}; ?>
+</div>
+<div class="form-group">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="name" class="form-control item" value="<?php echo $name; ?>"/>
+    <?php  if(!empty($nameErr)){ echo  '<div class="alert alert-danger" role="alert">'.$nameErr.'</div>';}; ?>
 </div>
 
-<fieldset>
-    <legend>Address</legend>
+<div class="form-group">
+    <label for="street">Street:</label>
+    <input type="text" name="street" id="street" class="form-control item" value="<?php echo $street; ?>">
+    <?php  if(!empty($streetErr)){ echo  '<div class="alert alert-danger" role="alert">'.$streetErr.'</div>';}; ?>
+</div>
+<div class="form-group">
+    <label for="streetnumber">Street number:</label>
+    <input type="text" id="streetnumber" name="streetnumber" class="form-control item" value="<?php echo $streetNumber; ?>">
+    <?php  if(!empty($streetNumberErr)){ echo  '<div class="alert alert-danger" role="alert">'.$streetNumberErr.'</div>';}; ?>
+</div>
+<div class="form-group">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" class="form-control item" value="<?php echo $city; ?>">
+    <?php  if(!empty($cityErr)){ echo  '<div class="alert alert-danger" role="alert">'.$cityErr.'</div>';}; ?>
+</div
+<div class="form-group">
+    <label for="zipcode">Zipcode</label>
+    <input type="text" id="zipcode" name="zipcode" class="form-control item" value="<?php echo $zipcode; ?>">
+    <?php  if(!empty($zipcodeErr)){ echo  '<div class="alert alert-danger" role="alert">'.$zipcodeErr.'</div>';}; ?>
+</div>
+<div class="form-group">
+    <button class="btn btn-primary btn-block btn-lg" type="submit">Sign in </button>
+</div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="street">Street:</label>
-            <input type="text" name="street" id="street" class="form-control" value="<?php echo $street; ?>">
-            <span class="error"><?php echo $streetErr; ?></span>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="streetnumber">Street number:</label>
-            <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php echo $streetNumber; ?>">
-            <span class="error"><?php echo $streetNumberErr; ?></span>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="city">City:</label>
-            <input type="text" id="city" name="city" class="form-control" value="<?php echo $city; ?>">
-            <span class="error"><?php echo $cityErr; ?></span>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="zipcode">Zipcode</label>
-            <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo $zipcode; ?>">
-            <span class="error"><?php echo $zipcodeErr; ?></span>
-        </div>
-    </div>
-</fieldset>
 
-<fieldset>
-    <legend>Products</legend>
-    <?php foreach (displayItems() AS $i => $product): ?>
-        <label>
-            <input type="checkbox" value="1" name="products[<?php echo $i ?>]"/> <?php echo $product['name'] ?> -
-            &euro; <?php echo number_format($product['price'], 2) ?></label><br />
-    <?php endforeach; ?>
-</fieldset>
-
-<button type="submit" class="btn btn-primary">Order!</button>

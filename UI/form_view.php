@@ -26,13 +26,29 @@
             </li>
         </ul>
     </nav>
-    <form method="post" >
-       <?php require './components/form-processing.php' ?>
+    <form method="post">
+    <?php
+    if(!isset($_SESSION['address'])){
+        echo '<form method="post" >';
+        require "./components/form-processing.php";
+        echo '</from>';
+    } else {
+        echo '<ul>';
+        echo '<li>'.$_SESSION['address']['street'].'</li>';
+        echo '<li>'.$_SESSION['address']['streetNumber'].'</li>';
+        echo '<li>'.$_SESSION['address']['city'].'</li>';
+        echo '<li>'.$_SESSION['address']['zipcode'].'</li>';
+        echo '</ul>';
+    };
+    ?>
+        <button type="submit" class="btn btn-primary">Sign In</button>
     </form>
-
-    <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
+    <form method="post">
+    <?php require './components/products-processing.php'  ?>
+    <button type="submit" class="btn btn-primary">Order!</button>
+    </form>
+    <?php require 'footer.php' ?>
 </div>
-
 <style>
     footer {
         text-align: center;

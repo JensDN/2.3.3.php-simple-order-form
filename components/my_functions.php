@@ -2,9 +2,6 @@
 //this line makes PHP behave in a more strict way
 declare(strict_types=1);
 session_start();
-$_SESSION["address"] = ['street'=> 'Bosdreef','streetNumber' => 103, 'city'=> 'Buggenhout', 'zipCode'=> 9255 ];
-
-whatIsHappening();
 function whatIsHappening() {
     echo '<h2>$_GET</h2>';
     var_dump($_GET);
@@ -20,42 +17,43 @@ Function displayItems (){
         switch ($_GET['food']) {
             case '1':
                 return $products = [
-                    ['name' => 'Cola', 'price' => 2],
-                    ['name' => 'Fanta', 'price' => 2],
-                    ['name' => 'Sprite', 'price' => 2],
-                    ['name' => 'Ice-tea', 'price' => 3],
+                    ['name' => 'Cola', 'price' => 2,'imgURL'=>'/img/juice/cola.png'],
+                    ['name' => 'Fanta', 'price' => 2,'imgURL'=>'/img/juice/fanta.png'],
+                    ['name' => 'Sprite', 'price' => 2,'imgURL'=>'/img/juice/sprite.png'],
+                    ['name' => 'Ice-tea', 'price' => 3,'imgURL'=>'/img/juice/icetea.jpg'],
                 ];
                 break;
             default:
                 return $products = [
-                    ['name' => 'Club Ham', 'price' => 3.20],
-                    ['name' => 'Club Cheese', 'price' => 3],
-                    ['name' => 'Club Cheese & Ham', 'price' => 4],
-                    ['name' => 'Club Chicken', 'price' => 4],
-                    ['name' => 'Club Salmon', 'price' => 5]
+                    ['name' => 'Club Ham', 'price' => 3.20,'imgURL'=>'/img/bread/clubham.jpg'],
+                    ['name' => 'Club Cheese', 'price' => 3,'imgURL'=>'/img/bread/clubcheese.jpeg'],
+                    ['name' => 'Club Cheese & Ham', 'price' => 4,'imgURL'=>'/img/bread/clubcheeseham.jpg'],
+                    ['name' => 'Club Chicken', 'price' => 4,'imgURL'=>'/img/bread/clubchicken.jpg'],
+                    ['name' => 'Club Salmon', 'price' => 5,'imgURL'=>'/img/bread/clubsalmon.jpg']
                 ];
                 break;
         }
     } else {
         return $products = [
-        ['name' => 'Club Ham', 'price' => 3.20],
-        ['name' => 'Club Cheese', 'price' => 3],
-        ['name' => 'Club Cheese & Ham', 'price' => 4],
-        ['name' => 'Club Chicken', 'price' => 4],
-        ['name' => 'Club Salmon', 'price' => 5]
+            ['name' => 'Cola', 'price' => 2,'imgURL'=>'/img/juice/cola.png'],
+            ['name' => 'Fanta', 'price' => 2,'imgURL'=>'/img/juice/fanta.png'],
+            ['name' => 'Sprite', 'price' => 2,'imgURL'=>'/img/juice/sprite.png'],
+            ['name' => 'Ice-tea', 'price' => 3,'imgURL'=>'/img/juice/icetea.jpg'],
+            ['name' => 'Club Ham', 'price' => 3.20,'imgURL'=>'/img/bread/clubham.jpg'],
+            ['name' => 'Club Cheese', 'price' => 3,'imgURL'=>'/img/bread/clubcheese.jpeg'],
+            ['name' => 'Club Cheese & Ham', 'price' => 4,'imgURL'=>'/img/bread/clubcheeseham.jpg'],
+            ['name' => 'Club Chicken', 'price' => 4,'imgURL'=>'/img/bread/clubchicken.jpg'],
+            ['name' => 'Club Salmon', 'price' => 5,'imgURL'=>'/img/bread/clubsalmon.jpg']
     ];}
 };
+function calculatePrice($orderProducts){
+   $eachPrice = array();
+   foreach ($orderProducts as $orderProduct ){
+       foreach ($orderProduct as $priceKey => $quantity) {
+           $eachPrice[] = $priceKey * $quantity;
+       }
+   }
+return $totalPrice = array_sum($eachPrice);
+};
+$sum = calculatePrice(['cola' => [2 => 4], 'fanta' => [2 => 3]]);
 $totalValue = 0;
-function validateThatDate ($emailInput, $addressInput){
-
-};
-function validateEmail ($emailInput) {
-    if (filter_var($emailInput, FILTER_VALIDATE_EMAIL)) {
-        echo "Email address '$emailInput' is considered valid.\n";
-    } else {
-        echo "Email address '$emailInput' is considered invalid.\n";
-    }
-};
-function validateAddress ($addressInput){
-
-}
